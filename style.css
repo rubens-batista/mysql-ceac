@@ -1,0 +1,14 @@
+body{
+    text-align: center;
+}
+section.container{
+    width: 960px;
+    height: 500px;
+    margin: auto;
+    padding: 20px;
+    text-align: left;
+    border-color: black 10px solid;
+    border-radius: 10px;
+    background-color: rgb(20, 20, 20);
+    color: cyan;
+}
