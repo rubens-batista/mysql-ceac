@@ -1,27 +1,24 @@
 <?php
-    #Obtendo os valores
-    $fname = $_POST['name'];
-    $lname = $_POST['last'];
-    $email = $_POST['email'];
-    $gender = $_POST['gender'];
-    $age = $_POST['age'];
-    $comments = $_POST['comments'];
-    $pass = $_POST['pass'];
-    #Verifica se há um metodo request no formulário 
+    #verifica se foi enviado pelo form
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        #validação para verificar se nenhum está faltando
-        if(!empty($fname) && !empty($lname) && !empty($email) && !empty($gender) && !empty($age) && !empty($comments) && !empty($pass)){ 
+        $fname = $_POST["name"];
+        $lname = $_POST["last"];
+        $email = $_POST["email"];
+        $gender = $_POST["gender"];
+        $comments = $_POST["comments"];
+        $pass = $_POST["pass"];
+        #verifica se os campos estão preenchidos
+        if(!empty($fname) && !empty($lname) && !empty($email) && !empty($gender) && !empty($comments) && !empty($pass)){
             include('connection.php');
-            
-            mysqli_query($dbc, "INSERT INTO users(first_name, last_name, email, gender, age, comments, pass) VALUES('$fname', '$lname', '$email', '$gender', '$age', '$comments', '$pass')");
-
-            $registered = mysqli_affected_rows();
-            echo "<br>$registered row is affected, everything worked fine!"; 
-        }else{
-            echo '<p style="color: red;">ERROR: you left some values in blank!</p>';
+            #inserindo values no database
+            mysqli_query($dbc, "INSERT INTO users(first_name, last_name, email, gender, age, comments, password) VALUES('$fname', '$lname', '$email', '$gender', '$comments', '$pass')");
+            $registered = mysqli_affected_rows($dbc);
+            echo "$registered row is affected, everything worked fine!";
+        }else {
+            echo "<span style='color: red;'>ERROR: You left some values in black</span>";
         }
-    }else{
-        echo '<strong>Please complete the form...</strong>';
+    }else {
+        echo "<h4>Please complete the form</h4>";
     }
 ?>
 
