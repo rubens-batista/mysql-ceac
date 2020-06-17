@@ -1,24 +1,30 @@
 <?php
-    #verifica se foi enviado pelo form
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $fname = $_POST["name"];
-        $lname = $_POST["last"];
-        $email = $_POST["email"];
-        $gender = $_POST["gender"];
-        $comments = $_POST["comments"];
-        $pass = $_POST["pass"];
-        #verifica se os campos estão preenchidos
-        if(!empty($fname) && !empty($lname) && !empty($email) && !empty($gender) && !empty($comments) && !empty($pass)){
+    //processing form
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+        $gender = $_POST['gender'];
+        $age = $_POST['age'];
+        $comments = $_POST['comments'];
+        $password = $_POST['password'];
+
+        if (!empty($fname) && !empty($lname) && !empty($email) && !empty($gender) && !empty($age) && !empty($comments) && !empty($password)) {
             include('connection.php');
-            #inserindo values no database
-            mysqli_query($dbc, "INSERT INTO users(first_name, last_name, email, gender, age, comments, password) VALUES('$fname', '$lname', '$email', '$gender', '$comments', '$pass')");
-            $registered = mysqli_affected_rows($dbc);
+
+            mysqli_query($dbc, "INSERT INTO users(first_name, last_name, email, gender, age, comments, password) VALUES('$fname', '$lname', '$email', '$gender', '$age', '$comments', '$password')");
+
+            $registered = mysqli_affected_rows();
+
             echo "$registered row is affected, everything worked fine!";
+            
         }else {
-            echo "<span style='color: red;'>ERROR: You left some values in black</span>";
+            echo "ERROR: please complete all fields!";
         }
     }else {
-        echo "<h4>Please complete the form</h4>";
+        echo "please fill all values of the form";
     }
 ?>
 
@@ -34,8 +40,8 @@
     <h1>Database-Form</h1>
     <section class="container">
         <form action="userform.php" method="post">
-            <p>First Name: <input type="text" name="name" size="20"  maxlength="50"></p>
-            <p>Last Name: <input type="text" name="last" size="20"  maxlength="50"></p>
+            <p>First Name: <input type="text" name="fname" size="20"  maxlength="50"></p>
+            <p>Last Name: <input type="text" name="lname" size="20"  maxlength="50"></p>
             <p>Email: <input type="email" name="email" size="20" maxlength="50"></p>
             <p>
                 Gender: <input type="radio" name="gender" value="Male"> Male
@@ -49,7 +55,7 @@
                 </select>
             </p>
             <p>Comments:<br><textarea name="comments" cols="40" rows="3" maxlength="200"></textarea></p>
-            <p>Password: <input type="password" name="pass" size="20"  maxlength="50"></p>
+            <p>Password: <input type="password" name="password" size="20"  maxlength="50"></p>
             <button type="submit">Submit</button>
         </form>
     </section>

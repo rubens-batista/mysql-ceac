@@ -1,17 +1,16 @@
 <?php
     $hostname = "localhost";
     $username = "root";
-    $password1 = "root";
+    $password = "root";
     $dbname = "myfirstdatabase";
 
-    #making the connection to mysql
-    $error = mysqli_connect_error();
-    $dbc = mysqli_connect($hostname, $username, $password1, $dbname) OR die("could not connect to database $error");
+    //making the connection to mysql
 
-    #set encoding
+    $dbc = mysqli_connect($hostname, $username, $password, $dbname) OR die("Could not connect to database, ERROR:".mysqli_connect_error());
+
+    //set encoding
+
     mysqli_set_charset($dbc, "utf8");
 
-    //echo "you are connected to $dbname Database ";
-
-
+    echo "you are connect to $dbname";
 ?>
